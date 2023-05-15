@@ -9,11 +9,6 @@
 <script>
 export default {
   name: "welcome",
-  data() {
-    return {
-      backgroundImg: "static/imgs/start.png",
-    };
-  },
   methods: {
     gotoPlay() {
       this.$router.push("/home");
@@ -21,7 +16,7 @@ export default {
   },
   computed: {
     getBg() {
-      return { backgroundImage: `url(${this.backgroundImg})` };
+      return { backgroundImage: `url(static/imgs/start.png)` };
     },
   },
 };
@@ -36,6 +31,8 @@ export default {
   align-items: center;
 }
 .startBtn {
+  // background-image: url("static/imgs/start.png");  --> 不显示
+  // background-image: url("../../public/static/imgs/start.png");  --> 显示
   background-size: 100% 100%;
   width: 1996px;
   height: 826px;

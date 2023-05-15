@@ -7,6 +7,17 @@
       <p @click="gotoPlay()">重新挑战</p>
       <p @click="gotowelcome()">回到首页</p>
     </div>
+
+    <audio
+      ref="winAudio"
+      src="static/audio/game_win.mp3"
+      @click="winPlay()"
+    ></audio>
+    <audio
+      ref="failAudio"
+      src="static/audio/game_fail.mp3"
+      @click="failPlay()"
+    ></audio>
   </div>
 </template>
 
@@ -15,7 +26,7 @@ export default {
   name: "end",
   data() {
     return {
-      win: null,
+      win: null, // 1 失败  2 成功
       score: 0,
       backgroundImg: "",
     };
@@ -24,18 +35,38 @@ export default {
     const Query = this.$route.query;
     this.win = Query.win;
     this.score = Query.score;
-    if (this.win == 1) {
+  },
+  mounted() {
+    if (this.win == 2) {
       this.backgroundImg = "static/imgs/end_win.png";
+      setTimeout(() => {
+        this.winPlay();
+      }, 500);
     } else {
       this.backgroundImg = "static/imgs/end_fail.png";
+      setTimeout(() => {
+        this.failPlay();
+      }, 500);
     }
   },
   methods: {
     gotoPlay() {
+      this.$refs.winAudio.pause();
+      this.$refs.failAudio.pause();
       this.$router.push("/home");
     },
     gotowelcome() {
+      this.$refs.winAudio.pause();
+      this.$refs.failAudio.pause();
       this.$router.push("/");
+    },
+    winPlay() {
+      this.$refs.winAudio.load();
+      this.$refs.winAudio.play();
+    },
+    failPlay() {
+      this.$refs.failAudio.load();
+      this.$refs.failAudio.play();
     },
   },
   computed: {
