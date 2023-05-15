@@ -15,10 +15,8 @@ npm run serve
 npm run build
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+### 注意
+1、这里的消息接收是配合摄像头识别的，但是各位用不到，所以可以删除！
+2、消息相关文件或者代码：tools、stomp、消息
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
