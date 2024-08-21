@@ -4,8 +4,6 @@ const gloableData = {
   gameTime: 90,
   // 接到粽子获取分数
   gameScore: 10,
-  // stomp监听的事件名称
-  stomp_event_message: "",
   // 下落距离， 单位px
   Dropdistance: 6,
   // 下落时间， 单位毫秒，注：下落时间不要小于20

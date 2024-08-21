@@ -39,10 +39,6 @@
 </template>
 
 <script>
-// 消息
-import Stomp from "stompjs";
-import { MQ_SERVICE, MQ_USERNAME, MQ_PASSWORD } from "@/tools/stompSet.js";
-
 import { v4 as uuidv4 } from "uuid";
 
 export default {
@@ -56,9 +52,6 @@ export default {
         winX: 0,
       },
       score: 0,
-
-      // 消息
-      client: Stomp.client(MQ_SERVICE),
 
       // 游戏时长
       // eslint-disable-next-line
@@ -210,9 +203,6 @@ export default {
         });
       }
     }, 1000);
-
-    // 消息
-    this.connect();
   },
   methods: {
     getStyle(data) {
@@ -233,38 +223,6 @@ export default {
     zingziPlay() {
       this.$refs.zongziAudio.load();
       this.$refs.zongziAudio.play();
-    },
-
-    // 消息
-    connect() {
-      var headers = {
-        login: MQ_USERNAME,
-        passcode: MQ_PASSWORD,
-      };
-      this.client.connect(headers, this.onConnected, this.onFailed);
-      this.client.heartbeat.outgoing = 0; // 客户端不发送
-      this.client.heartbeat.incoming = 10000;
-    },
-    // eslint-disable-next-line
-    onConnected(frame) {
-      console.log("mq连接成功");
-      // eslint-disable-next-line
-      var event_message = gloableData.stomp_event_message;
-      this.client.subscribe(
-        event_message,
-        this.responseCallbackArea,
-        this.onFailed
-      );
-    },
-    onFailed(frame) {
-      console.log("连接失败: " + frame);
-      this.client = Stomp.client(MQ_SERVICE);
-      this.connect();
-    },
-    // 处理
-    responseCallbackArea(frame) {
-      const detail = JSON.parse(frame.body);
-      console.log(detail);
     },
   },
   beforeDestroy() {
