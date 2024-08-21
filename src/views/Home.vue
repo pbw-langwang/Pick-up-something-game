@@ -162,7 +162,7 @@ export default {
       const X = Math.random() * 390 * 10;
       const I = Math.floor(Math.random() * 5) + 1;
 
-      // 避免重叠
+      // 避免五毒和粽子重叠
       let canshow;
       if (this.creatList.length > 1) {
         canshow =
